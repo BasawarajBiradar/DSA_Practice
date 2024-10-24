@@ -3,21 +3,23 @@ package dsaProblems.datastructures.arraylist;
  * Modification History
  * Name : Basawaraj Biradar
  *
- * Version      Date        Name                Changes
- * 1.0.0        22/10/2024  Basawaraj Biradar   Created file, Added int array, index in instance and created add(), print() methods.
- * 1.0.1        23/20/2024  Basawaraj Biradar   Created add(index, value), delete(index) and deleteByValue(value) methods.
- *
+ * Version   Date        Name                Changes
+ * 1.0.0     22/10/2024  Basawaraj Biradar   Created file, Added int array, index in instance and created add(), print() methods.
+ * 1.0.1     23/20/2024  Basawaraj Biradar   Created add(index, value), delete(index) and deleteByValue(value) methods.
+ * 1.0.2     24/10/2024  Basawaraj Biradar   Added generic to the CustomArrayList class and updated all the methods.
  * */
 
-public class CustomArrayList {
+public class CustomArrayList<k> {
     /** Create an array with initial size using constructor */
-    private int[] arr;
+    private k[] arr;
 
+    @SuppressWarnings("unchecked")
     public CustomArrayList() {
-        arr = new int[5];
+        arr = (k[]) new Object[5];
     }
+    @SuppressWarnings("unchecked")
     public CustomArrayList(int size) {
-        arr = new int[size];
+        arr = (k[]) new Object[size];
     }
 
     /** Declare an instance variable to track the index */
@@ -28,14 +30,15 @@ public class CustomArrayList {
      *  if false then add the value without any modification
      *  if not then create new array with larger size and add all the elements from old array and then new element
      * */
-    public boolean add(int value) {
+    @SuppressWarnings("unchecked")
+    public boolean add(k value) {
         try {
             if (index < arr.length) {
                 arr[index] = value;
                 index++;
                 return true;
             } else {
-                int[] newArr = new int[arr.length + (arr.length/2)];
+                k[] newArr = (k[]) new Object[arr.length + (arr.length/2)];
                 for (int i = 0 ; i < arr.length ; i++) {
                     newArr[i] = arr[i];
                 }
@@ -55,7 +58,8 @@ public class CustomArrayList {
      * increment the instance index because we shifted elements by one place.
      * in the else part of checking instance index and length of array increase the size of array and call the add(index, value) method.
      * */
-    public boolean add(int index, int value) {
+    @SuppressWarnings("unchecked")
+    public boolean add(int index, k value) {
         if (index > this.index)
             throw new ArrayIndexOutOfBoundsException();
         if (index < 0)
@@ -71,7 +75,7 @@ public class CustomArrayList {
                     }
                 }
             } else {
-                int[] newArr = new int[arr.length + (arr.length/2)];
+                k[] newArr = (k[]) new Object[arr.length + (arr.length/2)];
                 for (int i = 0 ; i < arr.length ; i++) {
                     newArr[i] = arr[i];
                 }
@@ -106,10 +110,10 @@ public class CustomArrayList {
     }
 
     /** Deleting the given element */
-    public boolean deleteByValue(int value) {
+    public boolean delete(k value) {
         try {
             for (int i = 0 ; i < index ; i++) {
-                if (arr[i] == value) {
+                if (arr[i].equals(value)) {
                     for (int j = i ; j < index ; j++) {
                         arr[j] = arr[j+1];
                     }
